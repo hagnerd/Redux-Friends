@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { login } from "../actions";
 
 import LoginForm from "../components/login-form";
@@ -12,7 +13,12 @@ function Login(props) {
   );
 }
 
-export default connect(
-  state => ({ isLoggingIn: state.loggingIn, errorMessage: state.errorMessage }),
-  { login }
-)(Login);
+export default withRouter(
+  connect(
+    state => ({
+      isLoggingIn: state.loggingIn,
+      errorMessage: state.errorMessage
+    }),
+    { login }
+  )(Login)
+);

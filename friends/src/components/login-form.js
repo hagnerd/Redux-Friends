@@ -24,10 +24,8 @@ export default class LoginForm extends React.Component {
 
     this.props
       .login(username, password)
-      .then(res => {
-        // TODO: Implement redirecting the user to the '/' route upon successful
-        // login
-        console.log(res);
+      .then(() => {
+        this.props.history.push("/");
       })
       .catch(err => {
         console.error(err);
