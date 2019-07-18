@@ -57,13 +57,17 @@ export const saveFriends = body => async dispatch => {
   dispatch({ type: SAVE_FRIENDS_START });
 
   return axiosAuth()
-    .post("http://localhost:5000/friends", body)
+    .post("http://localhost:5000/api/friends", body)
     .then(res => {
-      console.log(res);
-      dispatch({ type: SAVE_FRIENDS_SUCCESS });
+      dispatch({ type: SAVE_FRIENDS_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      console.log(err);
-      dispatch({ type: SAVE_FRIENDS_FAILURE });
+      const payload = err.response && err.response.data.error;
+
+      dispatch({ type: SAVE_FRIENDS_FAILURE, payload });
+
+      return `ERROR - STATUS: ${err.response.status} ${
+        err.response.statusText
+      } - MESSAGE ${payload}`;
     });
 };

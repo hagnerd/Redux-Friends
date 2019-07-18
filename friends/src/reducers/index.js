@@ -4,14 +4,18 @@ import {
   LOGIN_FAILURE,
   FETCH_FRIENDS_START,
   FETCH_FRIENDS_SUCCESS,
-  FETCH_FRIENDS_FAILURE
+  FETCH_FRIENDS_FAILURE,
+  SAVE_FRIENDS_START,
+  SAVE_FRIENDS_SUCCESS,
+  SAVE_FRIENDS_FAILURE
 } from "../actions";
 
 const initialState = {
   friends: [],
   loggingIn: false,
   errorMessage: null,
-  isFetchingFriends: false
+  isFetchingFriends: false,
+  isSavingFriends: false
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -57,6 +61,27 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         isFetchingFriends: false,
         errorMessage: "An error occured while fetching your friends"
+      };
+    }
+    case SAVE_FRIENDS_START: {
+      return {
+        ...state,
+        isSavingFriends: true
+      };
+    }
+    case SAVE_FRIENDS_SUCCESS: {
+      return {
+        ...state,
+        isSavingFriends: false,
+        friends: action.payload,
+        errorMessage: null
+      };
+    }
+    case SAVE_FRIENDS_FAILURE: {
+      return {
+        ...state,
+        isSavingFriends: false,
+        errorMessage: action.payload
       };
     }
     default:
