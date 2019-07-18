@@ -8,12 +8,25 @@ import FriendsContainer from "../containers/friends-container";
 function FriendsPage({ match }) {
   return (
     <FriendsContainer>
-      {({ friends, saveFriends }) => (
+      {({ friends, saveFriends, updateFriend }) => (
         <Switch>
           <Route
             path={`${match.path}/new`}
-            component={props => (
-              <FriendForm {...props} onSubmit={saveFriends} />
+            render={props => <FriendForm {...props} onSubmit={saveFriends} />}
+          />
+          <Route
+            path={`${match.path}/:id/edit`}
+            render={routeProps => (
+              <FriendForm
+                {...routeProps}
+                {...friends.find(
+                  friend => friend.id === Number(routeProps.match.params.id)
+                )}
+                submitText="Update Friend"
+                onSubmit={body =>
+                  updateFriend(routeProps.match.params.id, body)
+                }
+              />
             )}
           />
           <Route

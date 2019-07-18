@@ -16,6 +16,10 @@ export const SAVE_FRIENDS_START = "SAVE_FRIENDS_START";
 export const SAVE_FRIENDS_SUCCESS = "SAVE_FRIENDS_SUCCESS";
 export const SAVE_FRIENDS_FAILURE = "SAVE_FRIENDS_FAILURE";
 
+export const UPDATE_FRIEND_START = "UPDATE_FRIEND_START";
+export const UPDATE_FRIEND_SUCCESS = "UPDATE_FRIEND_SUCCESS";
+export const UPDATE_FRIEND_FAILURE = "UPDATE_FRIEND_FAILURE";
+
 ///////////////////////////////////////////////////////////////////////////////
 //  ACTION CREATORS
 export const fetchFriends = () => async dispatch => {
@@ -67,6 +71,25 @@ export const saveFriends = body => async dispatch => {
       dispatch({ type: SAVE_FRIENDS_FAILURE, payload });
 
       return `ERROR - STATUS: ${err.response.status} ${
+        err.response.statusText
+      } - MESSAGE ${payload}`;
+    });
+};
+
+export const updateFriend = (id, body) => async dispatch => {
+  dispatch({ type: UPDATE_FRIEND_START });
+
+  return axiosAuth()
+    .put(`http://localhost:5000/api/friends/${id}`, body)
+    .then(res => {
+      dispatch({ type: UPDATE_FRIEND_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log(err);
+      const payload = err.response && err.response.data;
+
+      dispatch({ type: UPDATE_FRIEND_FAILURE, payload });
+      return `ERROR - STATUS ${err.response.status} ${
         err.response.statusText
       } - MESSAGE ${payload}`;
     });
