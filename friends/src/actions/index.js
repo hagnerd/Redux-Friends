@@ -40,7 +40,12 @@ export const login = (username, password) => async dispatch => {
       dispatch({ type: LOGIN_SUCCESS, payload: { token: res.data.token } });
     })
     .catch(err => {
-      console.log(err);
-      dispatch({ type: LOGIN_FAILURE });
+      const payload = err.response && err.response.data.error;
+      console.log(err.response);
+
+      dispatch({ type: LOGIN_FAILURE, payload });
+      return `ERROR - STATUS: ${err.response.status} ${
+        err.response.statusText
+      } - MESSAGE: ${payload}`;
     });
 };

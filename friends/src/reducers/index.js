@@ -25,7 +25,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         loggingIn: false,
-        errorMessage: "Error logging in"
+        errorMessage: action.payload
       };
     }
 
