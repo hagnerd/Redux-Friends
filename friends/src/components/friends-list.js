@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Friend from "./friend";
 
 export default function FriendsList({ friends }) {
@@ -6,7 +7,9 @@ export default function FriendsList({ friends }) {
     <ul>
       {friends.map(friend => (
         <li key={friend.id}>
-          <Friend {...friend} />
+          <Link to={`/friends/${friend.id}`}>
+            <Friend {...friend} />
+          </Link>
         </li>
       ))}
     </ul>

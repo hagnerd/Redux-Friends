@@ -13,7 +13,7 @@ function Navigation({ history }) {
     <nav>
       <ul>
         <li>
-          <Link to="/">Friends</Link>
+          <Link to="/friends">Friends</Link>
         </li>
         <li>
           <button onClick={logout}>Logout</button>

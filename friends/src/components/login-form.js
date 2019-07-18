@@ -25,7 +25,7 @@ export default class LoginForm extends React.Component {
     this.props
       .login(username, password)
       .then(() => {
-        this.props.history.push("/");
+        this.props.history.push("/friends");
       })
       .catch(err => {
         console.error(err);
