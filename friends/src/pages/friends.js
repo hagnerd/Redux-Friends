@@ -1,31 +1,35 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import { connect } from "react-redux";
-import { fetchFriends } from "../actions";
 import Friends from "../components/friends";
 import FriendDetail from "../pages/friend-detail";
+import FriendForm from "../components/friend-form";
 import FriendsContainer from "../containers/friends-container";
 
-function FriendsPage(props) {
+function FriendsPage({ match }) {
   return (
-    <FriendsContainer {...props}>
-      {friendsProps => (
+    <FriendsContainer>
+      {({ friends, saveFriends }) => (
         <Switch>
           <Route
-            path={`${props.match.path}/:id`}
+            path={`${match.path}/new`}
+            component={props => (
+              <FriendForm {...props} onSubmit={saveFriends} />
+            )}
+          />
+          <Route
+            path={`${match.path}/:id`}
             render={routeProps => (
               <FriendDetail
                 {...routeProps}
-                {...friendsProps}
-                friend={friendsProps.friends.find(
+                friend={friends.find(
                   friend => Number(routeProps.match.params.id) === friend.id
                 )}
               />
             )}
           />
           <Route
-            path={`${props.match.path}`}
-            render={routeProps => <Friends {...routeProps} {...friendsProps} />}
+            path={`${match.path}`}
+            render={routeProps => <Friends {...routeProps} friends={friends} />}
           />
         </Switch>
       )}
@@ -33,19 +37,4 @@ function FriendsPage(props) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    isFetchingFriends: state.isFetchingFriends,
-    friends: state.friends,
-    errorMessage: state.errorMessage,
-  };
-};
-
-const mapDispatchToProps = {
-  fetchFriends
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FriendsPage);
+export default FriendsPage;
