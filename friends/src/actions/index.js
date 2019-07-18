@@ -37,7 +37,7 @@ export const login = (username, password) => async dispatch => {
     .post("http://localhost:5000/api/login", { username, password })
     .then(res => {
       console.log(res);
-      dispatch({ type: LOGIN_SUCCESS, payload: { token: res.data.token } });
+      dispatch({ type: LOGIN_SUCCESS, payload: { token: res.data.payload } });
     })
     .catch(err => {
       const payload = err.response && err.response.data.error;
