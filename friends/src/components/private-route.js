@@ -9,10 +9,16 @@ export default function PrivateRoute({ component: Component, ...rest }) {
   return (
     <Route
       {...rest}
-      render={() => {
+      render={props => {
         const token = localStorage.getItem("token");
 
-        return token ? <Component /> : <Redirect to="/login" />;
+        return token ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{ pathname: "/login", state: { from: props.location } }}
+          />
+        );
       }}
     />
   );
