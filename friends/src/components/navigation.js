@@ -16,6 +16,9 @@ function Navigation({ history }) {
           <Link to="/friends">Friends</Link>
         </li>
         <li>
+          <Link to="/friends/new">Add a New Friend</Link>
+        </li>
+        <li>
           <button onClick={logout}>Logout</button>
         </li>
       </ul>
