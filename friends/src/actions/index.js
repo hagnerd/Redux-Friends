@@ -12,6 +12,10 @@ export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILURE = "LOGIN_FAILURE";
 
+export const SAVE_FRIENDS_START = "SAVE_FRIENDS_START";
+export const SAVE_FRIENDS_SUCCESS = "SAVE_FRIENDS_SUCCESS";
+export const SAVE_FRIENDS_FAILURE = "SAVE_FRIENDS_FAILURE";
+
 ///////////////////////////////////////////////////////////////////////////////
 //  ACTION CREATORS
 export const fetchFriends = () => async dispatch => {
@@ -46,5 +50,20 @@ export const login = (username, password) => async dispatch => {
       return `ERROR - STATUS: ${err.response.status} ${
         err.response.statusText
       } - MESSAGE: ${payload}`;
+    });
+};
+
+export const saveFriends = body => async dispatch => {
+  dispatch({ type: SAVE_FRIENDS_START });
+
+  return axiosAuth()
+    .post("http://localhost:5000/friends", body)
+    .then(res => {
+      console.log(res);
+      dispatch({ type: SAVE_FRIENDS_SUCCESS });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: SAVE_FRIENDS_FAILURE });
     });
 };
