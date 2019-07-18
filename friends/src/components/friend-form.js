@@ -25,9 +25,14 @@ export default class FriendForm extends React.Component {
 
     const { name, age, email } = this.state;
 
-    this.props.onSubmit({ name, age, email });
-
-    this.props.history.push("/friends");
+    this.props
+      .onSubmit({ name, age, email })
+      .then(() => {
+        this.props.history.push("/friends");
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   render() {
