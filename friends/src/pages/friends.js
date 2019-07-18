@@ -1,27 +1,24 @@
 import React from "react";
+import { connect } from "react-redux";
+import { fetchFriends } from "../actions";
 import Friends from "../components/friends";
 
-function FriendsPage() {
-  return (
-    <Friends
-      getFriends={() => console.log("fetching friends")}
-      isFetchingFriends={false}
-      friends={[
-        {
-          id: 1,
-          name: "Hal",
-          age: 33,
-          email: "hal@gmail.com"
-        },
-        {
-          id: 2,
-          name: "George",
-          age: 22,
-          email: "gg@gmail.com"
-        }
-      ]}
-    />
-  );
+function FriendsPage(props) {
+  return <Friends {...props} />;
 }
 
-export default FriendsPage;
+const mapStateToProps = state => {
+  return {
+    isFetchingFriends: state.isFetchingFriends,
+    friends: state.friends
+  };
+};
+
+const mapDispatchToProps = {
+  fetchFriends
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FriendsPage);

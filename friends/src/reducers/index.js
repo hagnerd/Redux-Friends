@@ -1,9 +1,17 @@
-import { LOGIN_START, LOGIN_SUCCESS, LOGIN_FAILURE } from "../actions";
+import {
+  LOGIN_START,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  FETCH_FRIENDS_START,
+  FETCH_FRIENDS_SUCCESS,
+  FETCH_FRIENDS_FAILURE
+} from "../actions";
 
 const initialState = {
   friends: [],
   loggingIn: false,
-  errorMessage: null
+  errorMessage: null,
+  isFetchingFriends: false
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -29,6 +37,28 @@ export default function rootReducer(state = initialState, action) {
       };
     }
 
+    case FETCH_FRIENDS_START: {
+      return {
+        ...state,
+        isFetchingFriends: true
+      };
+    }
+    case FETCH_FRIENDS_SUCCESS: {
+      return {
+        ...state,
+        isFetchingFriends: false,
+        errorMessage: null,
+        friends: action.payload
+      };
+    }
+
+    case FETCH_FRIENDS_FAILURE: {
+      return {
+        ...state,
+        isFetchingFriends: false,
+        errorMessage: "ahhhh"
+      };
+    }
     default:
       return state;
   }

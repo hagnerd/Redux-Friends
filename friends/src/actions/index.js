@@ -19,11 +19,10 @@ export const fetchFriends = () => async dispatch => {
 
   // We use axiosAuth so that we don't need to manually read the token form
   // localStorage
-  return axiosAuth
+  return axiosAuth()
     .get("http://localhost:5000/api/friends")
     .then(res => {
-      console.log(res);
-      dispatch({ type: FETCH_FRIENDS_SUCCESS });
+      dispatch({ type: FETCH_FRIENDS_SUCCESS, payload: res.data });
     })
     .catch(err => {
       console.log(err);
