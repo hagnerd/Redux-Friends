@@ -8,11 +8,12 @@ import { BrowserRouter } from "react-router-dom";
 
 import App from "./App";
 import rootStore from "./reducers";
+import addTokenToLocalStorage from "./add-token-to-local-storage";
 
 const store = createStore(
   rootStore,
   compose(
-    applyMiddleware(thunk, logger),
+    applyMiddleware(thunk, addTokenToLocalStorage, logger),
     window.__REDUX_DEVTOOLS_EXTENSION__
       ? window.__REDUX_DEVTOOLS_EXTENSION__()
       : f => f
