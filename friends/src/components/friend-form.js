@@ -10,7 +10,8 @@ export default class FriendForm extends React.Component {
   static defaultProps = {
     name: "",
     age: 18,
-    email: ""
+    email: "",
+    submitText: "Create Friend"
   };
 
   handleChange = event => {
@@ -67,7 +68,7 @@ export default class FriendForm extends React.Component {
           required
         />
         <br />
-        <button type="submit">Create Friend</button>
+        <button type="submit">{this.props.submitText}</button>
       </form>
     );
   }
