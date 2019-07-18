@@ -1,10 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import FriendsList from "./friends-list";
 
-export default function Friends(props) {
+function Friends(props) {
   const { friends, isFetchingFriends, errorMessage } = props;
-  console.log(props);
+
   return (
     <>
       <h1>Friends</h1>
@@ -18,3 +19,10 @@ export default function Friends(props) {
     </>
   );
 }
+
+const mapStateToProps = state => ({
+  isFetchingFriends: state.isFetchingFriends,
+  errorMessage: state.errorMessage
+});
+
+export default connect(mapStateToProps)(Friends);
