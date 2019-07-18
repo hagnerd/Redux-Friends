@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Friend from "../components/friend";
+import { deleteFriend } from "../actions";
 
 function NoFriend() {
   return (
@@ -10,7 +12,7 @@ function NoFriend() {
   );
 }
 
-export default function FriendDetailPage(props) {
+function FriendDetailPage(props) {
   if (props.isFetchingFriends) {
     return <p>Currently fetching friends...</p>;
   }
@@ -21,8 +23,14 @@ export default function FriendDetailPage(props) {
       <Link to={`/friends/${props.friend.id}/edit`}>Edit Friend</Link>
       <button
         onClick={() => {
-          // TODO: Implement deletion of user, which will be an action
-          console.log("you clicked delete for user ", props.friend.id);
+          props
+            .deleteFriend(props.friend.id)
+            .then(() => {
+              props.history.push("/friends");
+            })
+            .catch(err => {
+              console.error(err);
+            });
         }}
       >
         Delete Friend
@@ -32,3 +40,8 @@ export default function FriendDetailPage(props) {
     <NoFriend />
   );
 }
+
+export default connect(
+  null,
+  { deleteFriend }
+)(FriendDetailPage);

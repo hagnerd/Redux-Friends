@@ -10,7 +10,10 @@ import {
   SAVE_FRIENDS_FAILURE,
   UPDATE_FRIEND_START,
   UPDATE_FRIEND_SUCCESS,
-  UPDATE_FRIEND_FAILURE
+  UPDATE_FRIEND_FAILURE,
+  DELETE_FRIEND_START,
+  DELETE_FRIEND_SUCCESS,
+  DELETE_FRIEND_FAILURE
 } from "../actions";
 
 const initialState = {
@@ -19,7 +22,8 @@ const initialState = {
   errorMessage: null,
   isFetchingFriends: false,
   isSavingFriends: false,
-  isUpdatingFriend: false
+  isUpdatingFriend: false,
+  isDeletingFriend: false
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -107,6 +111,27 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         isUpdatingFriend: false,
+        errorMessage: action.payload
+      };
+    }
+    case DELETE_FRIEND_START: {
+      return {
+        ...state,
+        isDeletingFriend: true
+      };
+    }
+    case DELETE_FRIEND_SUCCESS: {
+      return {
+        ...state,
+        isDeletingFriend: false,
+        errorMessage: null,
+        friends: action.payload
+      };
+    }
+    case DELETE_FRIEND_FAILURE: {
+      return {
+        ...state,
+        isDeletingFriend: false,
         errorMessage: action.payload
       };
     }
