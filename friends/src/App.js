@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import PrivateRoute from "./components/private-route";
 
 import Login from "./pages/login.js";
-import Dashboard from "./pages/dashboard";
+import Friends from "./pages/friends";
 import NoMatch from "./pages/no-match";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <main>
       <Switch>
         <Route path="/login" component={Login} />
-        <PrivateRoute path="/" component={Dashboard} />
+        <PrivateRoute path="/" component={Friends} />
         <Route component={NoMatch} />
       </Switch>
     </main>
