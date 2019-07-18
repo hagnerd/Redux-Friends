@@ -20,6 +20,10 @@ export const UPDATE_FRIEND_START = "UPDATE_FRIEND_START";
 export const UPDATE_FRIEND_SUCCESS = "UPDATE_FRIEND_SUCCESS";
 export const UPDATE_FRIEND_FAILURE = "UPDATE_FRIEND_FAILURE";
 
+export const DELETE_FRIEND_START = "DELETE_FRIEND_START";
+export const DELETE_FRIEND_SUCCESS = "DELETE_FRIEND_SUCCESS";
+export const DELETE_FRIEND_FAILURE = "DELETE_FRIEND_FAILURE";
+
 ///////////////////////////////////////////////////////////////////////////////
 //  ACTION CREATORS
 export const fetchFriends = () => async dispatch => {
@@ -92,5 +96,21 @@ export const updateFriend = (id, body) => async dispatch => {
       return `ERROR - STATUS ${err.response.status} ${
         err.response.statusText
       } - MESSAGE ${payload}`;
+    });
+};
+
+export const deleteFriend = id => async dispatch => {
+  dispatch({ type: DELETE_FRIEND_START });
+
+  return axiosAuth()
+    .delete(`http://localhost:5000/api/friends/${id}`)
+    .then(res => {
+      dispatch({ type: DELETE_FRIEND_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: DELETE_FRIEND_FAILURE, payload: err.response.data });
+      return `ERROR - STATUS ${err.response.status} ${
+        err.response.statusText
+      } - MESSAGE ${err.response.data}`;
     });
 };
