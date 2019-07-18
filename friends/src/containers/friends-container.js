@@ -1,9 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
+import { fetchFriends, saveFriends } from "../actions";
 
 // We want to avoid repeatedly fetching the friends from the server and making
-// the user wait. The render prop API lends nicely to having a state/effect-ful 
+// the user wait. The render prop API lends nicely to having a state/effect-ful
 // component wrap a sub-route ('/friends') with some common state.
-export default class FriendsContainer extends React.Component {
+class FriendsContainer extends React.Component {
   componentDidMount() {
     this.props.fetchFriends();
   }
@@ -11,8 +13,23 @@ export default class FriendsContainer extends React.Component {
   render() {
     return this.props.children({
       friends: this.props.friends,
-      isFetchingFriends: this.props.isFetchingFriends,
-      errorMessage: this.props.errorMessage
+      saveFriends: this.props.saveFriends
     });
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    friends: state.friends
+  };
+};
+
+const mapDispatchToProps = {
+  fetchFriends,
+  saveFriends
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(FriendsContainer);
