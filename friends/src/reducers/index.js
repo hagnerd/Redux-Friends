@@ -56,7 +56,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         isFetchingFriends: false,
-        errorMessage: "ahhhh"
+        errorMessage: "An error occured while fetching your friends"
       };
     }
     default:

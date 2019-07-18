@@ -6,15 +6,20 @@ import Login from "./pages/login.js";
 import Friends from "./pages/friends";
 import NoMatch from "./pages/no-match";
 
+import Navigation from "./components/navigation";
+
 function App() {
   return (
-    <main>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <PrivateRoute path="/" component={Friends} />
-        <Route component={NoMatch} />
-      </Switch>
-    </main>
+    <>
+      <Navigation />
+      <main>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <PrivateRoute path="/" component={Friends} />
+          <Route component={NoMatch} />
+        </Switch>
+      </main>
+    </>
   );
 }
 
