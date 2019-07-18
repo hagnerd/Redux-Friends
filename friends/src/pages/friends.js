@@ -36,7 +36,8 @@ function FriendsPage(props) {
 const mapStateToProps = state => {
   return {
     isFetchingFriends: state.isFetchingFriends,
-    friends: state.friends
+    friends: state.friends,
+    errorMessage: state.errorMessage,
   };
 };
 
