@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import Input from "./input";
+import Label from "./label";
+
 export default class LoginForm extends React.Component {
   state = {
     username: "",
@@ -37,15 +40,21 @@ export default class LoginForm extends React.Component {
     const { isLoading, errorMessage } = this.props;
 
     return (
-      <>
+      <div className="flex flex-col items-center">
+        <h1 className="text-4xl font-bold text-blue-700 mt-3">
+          Friends<span className="text-green-400">R</span>Us
+        </h1>
         {errorMessage ? (
           <p style={{ color: "red" }}>{errorMessage}</p>
         ) : (
           <div style={{ height: "42px" }} />
         )}
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="username">Username:</label>
-          <input
+        <form
+          className="w-64 flex flex-col bg-blue-500 p-6 rounded shadow-lg"
+          onSubmit={this.handleSubmit}
+        >
+          <Label htmlFor="username">Username:</Label>
+          <Input
             id="username"
             name="username"
             type="text"
@@ -54,8 +63,8 @@ export default class LoginForm extends React.Component {
           />
           <br />
 
-          <label htmlFor="password">Password</label>
-          <input
+          <Label htmlFor="password">Password:</Label>
+          <Input
             id="password"
             name="password"
             type="password"
@@ -65,12 +74,17 @@ export default class LoginForm extends React.Component {
           <br />
 
           {!isLoading ? (
-            <button type="submit">Login</button>
+            <button
+              className="bg-blue-800 border border-blue-800 rounded text-white px-3 py-1 uppercase text-sm hover:bg-blue-900"
+              type="submit"
+            >
+              Login
+            </button>
           ) : (
             <p>Loading...</p>
           )}
         </form>
-      </>
+      </div>
     );
   }
 }

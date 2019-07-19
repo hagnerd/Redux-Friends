@@ -1,5 +1,8 @@
 import React from "react";
 
+import Label from "./label";
+import Input from "./input";
+
 export default class FriendForm extends React.Component {
   state = {
     name: this.props.name,
@@ -37,13 +40,18 @@ export default class FriendForm extends React.Component {
 
   render() {
     return (
-      <>
+      <div className="flex flex-col items-center mt-6">
         {this.props.errorMessage && (
           <p style={{ color: "red" }}>{this.props.errorMessage}</p>
         )}
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Name:</label>
-          <input
+        <form
+          className="w-64 flex flex-col bg-white p-6 rounded shadow-lg"
+          onSubmit={this.handleSubmit}
+        >
+          <Label color="text-gray-800" htmlFor="name">
+            Name:
+          </Label>
+          <Input
             id="name"
             name="name"
             placeholder="Enter a name..."
@@ -53,8 +61,10 @@ export default class FriendForm extends React.Component {
             required
           />
           <br />
-          <label htmlFor="age">Age:</label>
-          <input
+          <Label color="text-gray-800" htmlFor="age">
+            Age:
+          </Label>
+          <Input
             id="age"
             name="age"
             placeholder="Enter an age..."
@@ -66,8 +76,10 @@ export default class FriendForm extends React.Component {
             required
           />
           <br />
-          <label htmlFor="email">Email:</label>
-          <input
+          <Label color="text-gray-800" htmlFor="email">
+            Email:
+          </Label>
+          <Input
             id="email"
             name="email"
             placeholder="Enter an email..."
@@ -80,10 +92,15 @@ export default class FriendForm extends React.Component {
           {this.props.isLoading ? (
             <p>{this.props.loadingText}</p>
           ) : (
-            <button type="submit">{this.props.submitText}</button>
+            <button
+              className="rounded bg-green-500 font-semibold p-3 text-white hover:bg-green-700 shadow"
+              type="submit"
+            >
+              {this.props.submitText}
+            </button>
           )}
         </form>
-      </>
+      </div>
     );
   }
 }
