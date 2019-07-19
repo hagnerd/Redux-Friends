@@ -11,8 +11,11 @@ class FriendsContainer extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return this.props.children({
       friends: this.props.friends,
+      isLoading: this.props.isLoading,
+      errorMessage: this.props.errorMessage,
       saveFriends: this.props.saveFriends,
       updateFriend: this.props.updateFriend
     });
