@@ -9,7 +9,7 @@ export default class LoginForm extends React.Component {
 
   static propTypes = {
     login: PropTypes.func.isRequired,
-    isLoggingIn: PropTypes.bool.isRequired
+    isLoading: PropTypes.bool.isRequired
   };
 
   handleChange = event => {
@@ -34,7 +34,7 @@ export default class LoginForm extends React.Component {
 
   render() {
     const { username, password } = this.state;
-    const { isLoggingIn, errorMessage } = this.props;
+    const { isLoading, errorMessage } = this.props;
 
     return (
       <>
@@ -64,7 +64,7 @@ export default class LoginForm extends React.Component {
           />
           <br />
 
-          {!isLoggingIn ? (
+          {!isLoading ? (
             <button type="submit">Login</button>
           ) : (
             <p>Loading...</p>

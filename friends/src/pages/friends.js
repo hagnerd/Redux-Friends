@@ -8,11 +8,19 @@ import FriendsContainer from "../containers/friends-container";
 function FriendsPage({ match }) {
   return (
     <FriendsContainer>
-      {({ friends, saveFriends, updateFriend }) => (
+      {({ friends, isLoading, errorMessage, saveFriends, updateFriend }) => (
         <Switch>
           <Route
             path={`${match.path}/new`}
-            render={props => <FriendForm {...props} onSubmit={saveFriends} />}
+            render={props => (
+              <FriendForm
+                {...props}
+                loadingText="Creating User..."
+                isLoading={isLoading}
+                errorMessage={errorMessage}
+                onSubmit={saveFriends}
+              />
+            )}
           />
           <Route
             path={`${match.path}/:id/edit`}
@@ -22,6 +30,9 @@ function FriendsPage({ match }) {
                 {...friends.find(
                   friend => friend.id === Number(routeProps.match.params.id)
                 )}
+                loadingText="Updating User..."
+                isLoading={isLoading}
+                errorMessage={errorMessage}
                 submitText="Update Friend"
                 onSubmit={body =>
                   updateFriend(routeProps.match.params.id, body)
@@ -34,6 +45,7 @@ function FriendsPage({ match }) {
             render={routeProps => (
               <FriendDetail
                 {...routeProps}
+                isLoading={isLoading}
                 friend={friends.find(
                   friend => Number(routeProps.match.params.id) === friend.id
                 )}
@@ -42,7 +54,14 @@ function FriendsPage({ match }) {
           />
           <Route
             path={`${match.path}`}
-            render={routeProps => <Friends {...routeProps} friends={friends} />}
+            render={routeProps => (
+              <Friends
+                {...routeProps}
+                isLoading={isLoading}
+                errorMessage={errorMessage}
+                friends={friends}
+              />
+            )}
           />
         </Switch>
       )}

@@ -21,7 +21,9 @@ class FriendsContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    friends: state.friends
+    friends: state.friends,
+    isLoading: state.isLoading,
+    errorMessage: state.errorMessage
   };
 };
 

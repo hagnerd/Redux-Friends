@@ -37,44 +37,53 @@ export default class FriendForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="name">Name:</label>
-        <input
-          id="name"
-          name="name"
-          placeholder="Enter a name..."
-          type="text"
-          value={this.state.name}
-          onChange={this.handleChange}
-          required
-        />
-        <br />
-        <label htmlFor="age">Age:</label>
-        <input
-          id="age"
-          name="age"
-          placeholder="Enter an age..."
-          type="number"
-          min="18"
-          max="100"
-          value={this.state.age}
-          onChange={this.handleChange}
-          required
-        />
-        <br />
-        <label htmlFor="email">Email:</label>
-        <input
-          id="email"
-          name="email"
-          placeholder="Enter an email..."
-          type="email"
-          value={this.state.email}
-          onChange={this.handleChange}
-          required
-        />
-        <br />
-        <button type="submit">{this.props.submitText}</button>
-      </form>
+      <>
+        {this.props.errorMessage && (
+          <p style={{ color: "red" }}>{this.props.errorMessage}</p>
+        )}
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="name">Name:</label>
+          <input
+            id="name"
+            name="name"
+            placeholder="Enter a name..."
+            type="text"
+            value={this.state.name}
+            onChange={this.handleChange}
+            required
+          />
+          <br />
+          <label htmlFor="age">Age:</label>
+          <input
+            id="age"
+            name="age"
+            placeholder="Enter an age..."
+            type="number"
+            min="18"
+            max="100"
+            value={this.state.age}
+            onChange={this.handleChange}
+            required
+          />
+          <br />
+          <label htmlFor="email">Email:</label>
+          <input
+            id="email"
+            name="email"
+            placeholder="Enter an email..."
+            type="email"
+            value={this.state.email}
+            onChange={this.handleChange}
+            required
+          />
+          <br />
+          {this.props.isLoading ? (
+            <p>{this.props.loadingText}</p>
+          ) : (
+            <button type="submit">{this.props.submitText}</button>
+          )}
+        </form>
+      </>
     );
   }
 }

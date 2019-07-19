@@ -1,17 +1,13 @@
 import React from "react";
-import { connect } from "react-redux";
-
 import FriendsList from "./friends-list";
 
-function Friends(props) {
-  const { friends, isFetchingFriends, errorMessage } = props;
-
+export default function Friends({ friends, isLoading, errorMessage }) {
   return (
     <>
       <h1>Friends</h1>
       {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
 
-      {isFetchingFriends ? (
+      {isLoading ? (
         <p>Fetching all of your friends now...</p>
       ) : (
         <FriendsList friends={friends} />
@@ -19,10 +15,3 @@ function Friends(props) {
     </>
   );
 }
-
-const mapStateToProps = state => ({
-  isFetchingFriends: state.isFetchingFriends,
-  errorMessage: state.errorMessage
-});
-
-export default connect(mapStateToProps)(Friends);

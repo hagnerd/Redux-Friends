@@ -16,7 +16,7 @@ function Login(props) {
 export default withRouter(
   connect(
     state => ({
-      isLoggingIn: state.loggingIn,
+      isLoading: state.isLoading,
       errorMessage: state.errorMessage
     }),
     { login }

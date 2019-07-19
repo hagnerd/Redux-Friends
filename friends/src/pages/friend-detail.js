@@ -13,7 +13,7 @@ function NoFriend() {
 }
 
 function FriendDetailPage(props) {
-  if (props.isFetchingFriends) {
+  if (props.isLoading) {
     return <p>Currently fetching friends...</p>;
   }
 
